@@ -1,8 +1,6 @@
-use std::fs::File;
 use std::collections::HashMap;
 use std::u32;
-use std::io::{self, BufRead};
-use std::path::Path;
+use crate::utils;
 
 
 pub fn part2(file_path: &str) -> u32 {
@@ -39,7 +37,7 @@ pub fn part1(file_path: &str) -> u32 {
 fn parse_file(file_path: &str) -> (Vec::<u32>, Vec::<u32>) {
     let mut l_vec = Vec::<u32>::new();
     let mut r_vec = Vec::<u32>::new();
-    if let Ok(lines) = read_lines(file_path) {
+    if let Ok(lines) = utils::read_lines(file_path) {
         // Consumes the iterator, returns an (Optional) String
         for line in lines.flatten() {
             let (l_num, r_num) = line.split_once("   ").unwrap();
@@ -50,10 +48,10 @@ fn parse_file(file_path: &str) -> (Vec::<u32>, Vec::<u32>) {
     (l_vec, r_vec)
 }
 
-// The output is wrapped in a Result to allow matching on errors.
-// Returns an Iterator to the Reader of the lines of the file.
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
-}
+// // The output is wrapped in a Result to allow matching on errors.
+// // Returns an Iterator to the Reader of the lines of the file.
+// fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+// where P: AsRef<Path>, {
+//     let file = File::open(filename)?;
+//     Ok(io::BufReader::new(file).lines())
+// }
